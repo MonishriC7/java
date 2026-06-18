@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // BufferedReader combined with StringTokenizer safely handles any layout format
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Read the first line of input
+        String line = reader.readLine();
+        if (line == null || line.trim().isEmpty()) {
+            return;
+        }
+        
+        // StringTokenizer breaks down the inputs by spaces automatically
+        StringTokenizer tokenizer = new StringTokenizer(line);
+        
+        // If the first line is empty, try reading the next line
+        while (!tokenizer.hasMoreTokens()) {
+            line = reader.readLine();
+            if (line == null) return;
+            tokenizer = new StringTokenizer(line);
+        }
+        
+        // 1. Get the array size (N)
+        int n = Integer.parseInt(tokenizer.nextToken());
+        int[] arr = new int[n];
+        
+        // 2. Read the N array elements
+        for (int i = 0; i < n; i++) {
+            // If we run out of numbers on this line, read the next line
+            while (!tokenizer.hasMoreTokens()) {
+                line = reader.readLine();
+                if (line == null) break;
+                tokenizer = new StringTokenizer(line);
+            }
+            arr[i] = Integer.parseInt(tokenizer.nextToken());
+        }
+        
+        // 3. Initialize calculation variables
+        long sum = 0; // 'long' prevents integer overflow on massive inputs
+        int max = arr[0];
+        int min = arr[0];
+        
+        // 4. Compute statistics
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        
+        // Calculate average as a decimal number
+        double average = (double) sum / n;
+        
+        // 5. Print the output exactly matching the requirements
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + average);
+        System.out.println("Maximum = " + max);
+        System.out.println("Minimum = " + min);
+    }
+}
