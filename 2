@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String sentence = reader.readLine();
+        
+        // Safety check: if input is missing or empty, stop immediately to avoid crashing
+        if (sentence == null || sentence.trim().isEmpty()) {
+            return;
+        }
+        
+        // Split the sentence into an array of individual words
+        String[] words = sentence.split(" ");
+        String result = "";
+        
+        for (int i = 0; i < words.length; i++) {
+            String currentWord = words[i];
+            
+            // Avoid adding blank items if there are extra spaces
+            if (currentWord.isEmpty()) {
+                continue;
+            }
+            
+            if (!result.contains(currentWord)) {
+                result = result + currentWord + " ";
+            }
+        }
+        
+        System.out.println(result.trim());
+    }
+}
